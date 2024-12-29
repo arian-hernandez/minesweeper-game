@@ -16,7 +16,7 @@ export class Cell {
   }
 }
 
-class SafeCell extends Cell{
+export class SafeCell extends Cell{
   constructor(){
     super();
   }

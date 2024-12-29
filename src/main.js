@@ -9,7 +9,8 @@ const game = {
 }
 
 const board1 = new Board(game);
-board1.setMines();
+board1.initializeBoard();
+
 
 console.log(board1);
 
