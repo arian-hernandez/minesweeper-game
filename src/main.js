@@ -1,14 +1,16 @@
 import { Cell } from "./cell.js";
+import Board from "./board.js";
 
-const filas = 5;
-const columnas = 5;
-const matriz = Array.from({ length: filas }, () => Array(columnas).fill(0));
+//Test game
+const game = {
+  numberOfRows: 5,
+  numberOfColumns: 5,
+  numberOfMines: 8,
+}
 
+const board1 = new Board(game);
+board1.setMines();
 
-const board = [[0,1,0],[0,0,1],[0,0,0]];
-
-
-
-
+console.log(board1);
 
 

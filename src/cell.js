@@ -1,7 +1,7 @@
 export class Cell {
-  value; //0 or 1
-  isFlagged; // true or false
-  releaved;
+  value = 0; //0 or 1
+  isFlagged = false; // true or false
+  isReleaved = false;
 
   isMine(){
     return this.value;
@@ -40,3 +40,8 @@ class SafeCell extends Cell{
       };
     }
   }
+
+
+
+  
+ 
