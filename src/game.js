@@ -52,4 +52,5 @@ export default class Game {
   timer() {
     // Implementar lógica para el temporizador
   }
+
 }

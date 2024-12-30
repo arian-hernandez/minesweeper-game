@@ -13,7 +13,8 @@ export default class Board{
     this.numberOfMines = game.numberOfMines;
     this.board = Array.from( { length: this.rows }, () => 
       Array.from( { length: this.columns }, () => new Cell())
-  )
+    )
+    
   }
 
   setMines(){
@@ -44,10 +45,55 @@ export default class Board{
    }
   }
 
+
+  renderBoard(){
+    console.log('into renderBoard');
+    let boardHTML = '';
+    let currentRow;
+    let currentColumn;
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.columns; j++) {
+        boardHTML += `
+        <div class="cell js-cell" data-row="${i}" data-column="${j}"></div>
+        `
+        }
+    }
+    document.querySelector('.board')
+    .innerHTML = boardHTML;
+    
+  }
+
+  getTotalCells(){
+  let numberCell = 0;
+  // Usando flat() y filter()
+  numberCell = this.board
+  .flat() // Aplana la matriz bidimensional en un arreglo unidimensional
+    .filter(cell => cell instanceof Cell).length;
+  
+  return numberCell;
+  }
+
+  getTotalSafeCells(){
+  let numberSafeCell = 0;
+  this.board.forEach((row)=>{
+    row.forEach((index)=>{
+      if(index instanceof SafeCell){
+        numberSafeCell++;
+      }
+    })
+  });
+  
+  return numberSafeCell;
+  } 
+
+
   initializeBoard(){
     this.setMines();
     this.setSafeCells();
+    this.renderBoard();
   }
+
+
 
 }
 
