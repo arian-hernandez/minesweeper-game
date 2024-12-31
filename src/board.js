@@ -1,19 +1,26 @@
 import { Cell, SafeCell } from "./cell.js";
 import { getRandomInt } from "./utils.js";
+import Game from "./game.js";
 
 export default class Board{
   rows;
   columns;
   numberOfMines;
   board;
+  difficulty;
 
   constructor(game){
     this.rows = game.numberOfRows;
     this.columns = game.numberOfColumns;
     this.numberOfMines = game.numberOfMines;
-    this.board = Array.from( { length: this.rows }, () => 
-      Array.from( { length: this.columns }, () => new Cell())
-    )
+    this.difficulty = game.difficulty;
+    this.board = Array.from({ length: this.rows }, (row, rowIndex) => 
+      Array.from({ length: this.columns }, (col, colIndex) => {
+        const id = `${rowIndex}${colIndex}`; // Generar ID único basado en la fila y columna
+        return new Cell(id); // Pasar el ID al constructor de la clase Cell
+      })
+    );
+    
     
   }
 
@@ -34,15 +41,15 @@ export default class Board{
     }
   }
 
-  setSafeCells(){
-   let boardWithSafeCells;
-   for(let i=0; i < this.board.length; i++){
-    for(let j=0; j < this.board[i].length; j++){
-      if(this.board[i][j].value === 0){
-        this.board[i][j] = new SafeCell();
+  setSafeCells() {
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        if (this.board[i][j].value === 0) {
+          const id = this.board[i][j].id; // Obtener el id de la celda actual
+          this.board[i][j] = new SafeCell(id); // Crear una nueva instancia de SafeCell con el mismo id
+        }
       }
     }
-   }
   }
 
 
@@ -51,15 +58,29 @@ export default class Board{
     let boardHTML = '';
     let currentRow;
     let currentColumn;
+
+    boardHTML += `<div class="board board-${this.difficulty}">`
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.columns; j++) {
+        
         boardHTML += `
-        <div class="cell js-cell" data-row="${i}" data-column="${j}"></div>
+        <div class="cell js-cell" data-row="${i}" data-column="${j}" data-id="${i}${j}"></div>
         `
         }
     }
+  boardHTML += `</div">`
+
     document.querySelector('.board')
     .innerHTML = boardHTML;
+
+
+    document.querySelectorAll('.js-cell')
+  .forEach((cell)=>{
+    cell.addEventListener('click',() => {
+      const cellId = cell.dataset.id;
+      this.reveal(cellId);
+    });
+  });
     
   }
 
@@ -85,6 +106,22 @@ export default class Board{
   
   return numberSafeCell;
   } 
+
+  reveal(cellId){
+    let matchingCell;
+    this.board.flat().forEach((cell)=>{
+      if(cell.id === cellId){
+        matchingCell = cell;
+      }
+    });
+
+    if(matchingCell.isMine()){
+      console.log('booom');
+    }
+
+
+    
+  }
 
 
   initializeBoard(){

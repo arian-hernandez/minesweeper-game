@@ -25,3 +25,4 @@ console.log(board1.getTotalSafeCells());
 
 
 
+

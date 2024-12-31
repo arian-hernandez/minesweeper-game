@@ -2,13 +2,13 @@ export class Cell {
   value = 0; //0 or 1
   isFlagged = false; // true or false
   isReleaved = false;
+  id;
 
+  constructor(id) {
+    this.id = id; // Asignar el ID al atributo de la celda
+  }
   isMine(){
     return this.value;
-  }
-
-  reveal(){
-
   }
 
   flagCell(){
@@ -17,8 +17,8 @@ export class Cell {
 }
 
 export class SafeCell extends Cell{
-  constructor(){
-    super();
+  constructor(id){
+    super(id);
   }
 
   // It's going to return a value from 0(no neighbors) to 8
