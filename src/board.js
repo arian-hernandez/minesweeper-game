@@ -81,6 +81,15 @@ export default class Board{
       this.reveal(cellId);
     });
   });
+
+  document.querySelectorAll('.js-cell')
+  .forEach((cell)=>{
+    cell.addEventListener('contextmenu', (event) => {
+      event.preventDefault(); //prevents default right click from happening
+      const cellId = cell.dataset.id;
+      this.flag(cellId); 
+    });
+  });
     
   }
 
@@ -107,7 +116,7 @@ export default class Board{
   return numberSafeCell;
   } 
 
-  reveal(cellId){
+  getCellFromLogic(cellId){
     let matchingCell;
     this.board.flat().forEach((cell)=>{
       if(cell.id === cellId){
@@ -115,12 +124,41 @@ export default class Board{
       }
     });
 
+    return matchingCell;
+  }
+
+  reveal(cellId){
+    let matchingCell = this.getCellFromLogic(cellId);
+
     if(matchingCell.isMine()){
-      console.log('booom');
+      console.log('booom');//implement lose here
+    }else{
+      if(matchingCell.getNeighbors()){
+        showNeighbors(cellId);
+      }else{//if neighbors is 0 means we have to expand
+        matchingCell.expand(cellId);
+      }
+    }
+  }
+
+  flag(cellId){
+    let matchingCell = this.getCellFromLogic(cellId);
+    
+    matchingCell.isFlagged = !matchingCell.isFlagged;
+
+    const cellElement = document.querySelector(`[data-id="${cellId}"]`);
+    if (matchingCell.isFlagged) {
+      cellElement.classList.add('js-flagged'); 
+    } else {
+      cellElement.classList.remove('js-flagged'); 
     }
 
 
-    
+    console.log(`right click on ${cellId}`);
+  }
+
+  showNeighbors(cellId){
+
   }
 
 
@@ -133,6 +171,8 @@ export default class Board{
 
 
 }
+
+
 
 
 

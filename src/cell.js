@@ -11,9 +11,7 @@ export class Cell {
     return this.value;
   }
 
-  flagCell(){
-
-  }
+  
 }
 
 export class SafeCell extends Cell{
@@ -24,7 +22,7 @@ export class SafeCell extends Cell{
   // It's going to return a value from 0(no neighbors) to 8
   getNeighbors(){
     let adjacentMines;
-
+    console.log('into get neighbors ()');
     return adjacentMines;
   }
 
@@ -35,10 +33,10 @@ export class SafeCell extends Cell{
   4- if they are empty reCall expand recursively
   */
   expand(){
-      if(!this.getNeighbors()){
-
-      };
+      console.log('into expand()');
     }
+
+
   }
 
 

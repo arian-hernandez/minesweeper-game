@@ -34,3 +34,10 @@
   font-size: 14px;
   cursor: pointer;
 }
+
+.cell.js-flagged {
+  background-color: red; /* O usa un ícono */
+  background-image: url('path/to/flag-icon.png'); /* Opcional */
+  background-size: cover;
+  background-position: center;
+}
