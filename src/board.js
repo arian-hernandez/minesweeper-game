@@ -9,19 +9,19 @@ export default class Board{
   board;
   difficulty;
 
-  constructor(game){
+  constructor(game) {
     this.rows = game.numberOfRows;
     this.columns = game.numberOfColumns;
     this.numberOfMines = game.numberOfMines;
     this.difficulty = game.difficulty;
-    this.board = Array.from({ length: this.rows }, (row, rowIndex) => 
+
+    // Generar el tablero con las celdas
+    this.board = Array.from({ length: this.rows }, (row, rowIndex) =>
       Array.from({ length: this.columns }, (col, colIndex) => {
-        const id = `${rowIndex}${colIndex}`; // Generar ID único basado en la fila y columna
-        return new Cell(id); // Pasar el ID al constructor de la clase Cell
+        const id = `${rowIndex}${colIndex}`; // ID único basado en fila y columna
+        return new Cell(id, rowIndex, colIndex); // Pasar ID, fila y columna al constructor
       })
     );
-    
-    
   }
 
   setMines(){
@@ -46,7 +46,9 @@ export default class Board{
       for (let j = 0; j < this.board[i].length; j++) {
         if (this.board[i][j].value === 0) {
           const id = this.board[i][j].id; // Obtener el id de la celda actual
-          this.board[i][j] = new SafeCell(id); // Crear una nueva instancia de SafeCell con el mismo id
+          const row = this.board[i][j].row; // Obtener la fila de la celda actual
+          const column = this.board[i][j].column;
+          this.board[i][j] = new SafeCell(id, row, column); // Crear una nueva instancia de SafeCell con el mismo id
         }
       }
     }
@@ -64,7 +66,7 @@ export default class Board{
       for (let j = 0; j < this.columns; j++) {
         
         boardHTML += `
-        <div class="cell js-cell" data-row="${i}" data-column="${j}" data-id="${i}${j}"></div>
+        <div class="cell js-cell js-cell-${i}${j}" data-row="${i}" data-column="${j}" data-id="${i}${j}"></div>
         `
         }
     }
@@ -133,8 +135,8 @@ export default class Board{
     if(matchingCell.isMine()){
       console.log('booom');//implement lose here
     }else{
-      if(matchingCell.getNeighbors()){
-        showNeighbors(cellId);
+      if(matchingCell.getNeighbors(this.board)){//if neighbors are at least 1
+        this.showNeighbors(cellId);
       }else{//if neighbors is 0 means we have to expand
         matchingCell.expand(cellId);
       }
@@ -157,8 +159,24 @@ export default class Board{
     console.log(`right click on ${cellId}`);
   }
 
-  showNeighbors(cellId){
+   // It's going to return a value from 0(no neighbors) to 8
 
+  showNeighbors(cellId){
+    const cell = this.getCellFromLogic(cellId);
+    const adjacentMines = cell.getNeighbors(this.board);
+
+    const cellElement = document.querySelector(`.js-cell-${cell.id}`);
+            if (cellElement) {
+                // Muestra el número de minas adyacentes en el selector
+                cellElement.innerHTML = `${adjacentMines}`;
+                console.log('entra');
+                console.log(adjacentMines);
+            }
+         else {
+            console.log('Celda no encontrada');
+        }
+
+    
   }
 
 

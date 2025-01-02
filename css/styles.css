@@ -36,8 +36,8 @@
 }
 
 .cell.js-flagged {
-  background-color: red; /* O usa un ícono */
-  background-image: url('path/to/flag-icon.png'); /* Opcional */
+  background-color: #ddd;
+  background-image: url('../assets/images/red-flag.gif'); /* Opcional */
   background-size: cover;
   background-position: center;
 }

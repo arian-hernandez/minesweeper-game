@@ -3,9 +3,13 @@ export class Cell {
   isFlagged = false; // true or false
   isReleaved = false;
   id;
+  row;
+  column;
 
-  constructor(id) {
+  constructor(id,row,column) {
     this.id = id; // Asignar el ID al atributo de la celda
+    this.row = row;
+    this.column = column;
   }
   isMine(){
     return this.value;
@@ -15,16 +19,42 @@ export class Cell {
 }
 
 export class SafeCell extends Cell{
-  constructor(id){
-    super(id);
+  constructor(id, row, column) {
+    super(id, row, column); 
   }
 
-  // It's going to return a value from 0(no neighbors) to 8
-  getNeighbors(){
-    let adjacentMines;
-    console.log('into get neighbors ()');
+  getNeighbors(board) {
+    let adjacentMines = 0;
+
+    // Coordenadas para las 8 direcciones alrededor de la celda
+    const directions = [
+        [-1, -1], [-1, 0], [-1, 1],
+        [0, -1],         [0, 1],
+        [1, -1], [1, 0], [1, 1]
+    ];
+
+    for (const [dx, dy] of directions) {
+        const newRow = this.row + dx;
+        const newCol = this.column + dy;
+
+        // Comprobar si las coordenadas están dentro de los límites del tablero
+        if (
+            newRow >= 0 &&
+            newRow < board.length &&
+            newCol >= 0 &&
+            newCol < board[0].length
+        ) {
+            const neighborCell = board[newRow][newCol];
+            if (neighborCell instanceof Cell && neighborCell.value === 1) {
+                adjacentMines++;
+            }
+        }
+    }
+
     return adjacentMines;
-  }
+}
+
+ 
 
   /*In expand() notice that you have to
   1- Change the cell to empty and reveal
