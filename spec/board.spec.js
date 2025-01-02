@@ -28,3 +28,38 @@ describe('Board', () => {
     expect(safeCells).toBe(22); // Total cells (5x5) - mines (3)
   });
 });
+
+
+describe("Board Logic", () => {
+  let cells;
+  let board;
+
+  beforeEach(() => {
+    // Crear un tablero simulado de 3x3
+    cells = [
+      [new Cell(0, 0, 0), new Cell(0, 1, 1), new Cell(0, 2, 0)],
+      [new Cell(1, 0, 0), new Cell(1, 1, 0), new Cell(1, 2, 1)],
+      [new Cell(2, 0, 0), new Cell(2, 1, 1), new Cell(2, 2, 0)],
+    ];
+
+    // Crear un objeto tablero para pasar a las funciones
+    board = cells.map(row => row.map(cell => cell));
+  });
+
+  it("debe expandir correctamente las celdas vacías", () => {
+    spyOn(cells[1][1], "expand").and.callThrough();
+    cells[1][1].expand(board);
+
+    expect(cells[1][1].isReleaved).toBeTrue();
+    expect(cells[1][0].isReleaved).toBeTrue(); // Vecino vacío
+    expect(cells[0][0].isReleaved).toBeTrue(); // Vecino vacío
+    expect(cells[0][1].isReleaved).toBeFalse(); // Mina vecina, no se expande
+  });
+});
+
+
+
+const { JSDOM } = require('jsdom');
+const dom = new JSDOM();
+global.document = dom.window.document;
+global.window = dom.window;

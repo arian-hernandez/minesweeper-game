@@ -99,7 +99,6 @@ export class SafeCell extends Cell{
           const cellElement = document.querySelector(`.js-cell-${neighborCell.id}`);
           cellElement.innerHTML = `${adjacentMines}`;
 
-          //board.showNeighbors(neighborCell.id, adjacentMines);
         }
         
       }
