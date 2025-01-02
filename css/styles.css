@@ -41,3 +41,8 @@
   background-size: cover;
   background-position: center;
 }
+
+.cell.js-safe{
+  background-color: transparent;
+  border: none;
+}

@@ -26,7 +26,6 @@ export class SafeCell extends Cell{
   getNeighbors(board) {
     let adjacentMines = 0;
 
-    // Coordenadas para las 8 direcciones alrededor de la celda
     const directions = [
         [-1, -1], [-1, 0], [-1, 1],
         [0, -1],         [0, 1],
@@ -37,7 +36,7 @@ export class SafeCell extends Cell{
         const newRow = this.row + dx;
         const newCol = this.column + dy;
 
-        // Comprobar si las coordenadas están dentro de los límites del tablero
+        // Make sure values are in the matrix
         if (
             newRow >= 0 &&
             newRow < board.length &&
@@ -62,8 +61,52 @@ export class SafeCell extends Cell{
   3- if they have neighbors: call getNeighbors() on those cells
   4- if they are empty reCall expand recursively
   */
-  expand(){
-      console.log('into expand()');
+  expand(board){
+
+    if (this.isReleaved) return;
+
+
+    this.isReleaved = true
+    const cellElement = document.querySelector(`.js-cell-${this.id}`);
+    cellElement.classList.add('js-safe'); 
+
+    const directions = [
+               [-1, 0], 
+      [0, -1],         [0, 1],
+               [1, 0] 
+    ];
+
+    for (const [dx, dy] of directions) {
+      const newRow = this.row + dx;
+      const newCol = this.column + dy;
+
+      // Make sure values are in the matrix
+      if (
+          newRow >= 0 &&
+          newRow < board.length &&
+          newCol >= 0 &&
+          newCol < board[0].length
+      ) {
+        const neighborCell = board[newRow][newCol];
+        if (neighborCell.isReleaved) continue;
+        const adjacentMines = neighborCell.getNeighbors(board);
+
+        if(adjacentMines === 0){
+
+        neighborCell.expand(board);
+        }
+        else{
+          const cellElement = document.querySelector(`.js-cell-${neighborCell.id}`);
+          cellElement.innerHTML = `${adjacentMines}`;
+
+          //board.showNeighbors(neighborCell.id, adjacentMines);
+        }
+        
+      }
+    }
+    
+
+
     }
 
 

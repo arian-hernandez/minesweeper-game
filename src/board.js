@@ -56,7 +56,6 @@ export default class Board{
 
 
   renderBoard(){
-    console.log('into renderBoard');
     let boardHTML = '';
     let currentRow;
     let currentColumn;
@@ -131,16 +130,21 @@ export default class Board{
 
   reveal(cellId){
     let matchingCell = this.getCellFromLogic(cellId);
-
+    if (matchingCell.isReleaved) return; // already revealed
+    
+    
     if(matchingCell.isMine()){
       console.log('booom');//implement lose here
     }else{
-      if(matchingCell.getNeighbors(this.board)){//if neighbors are at least 1
-        this.showNeighbors(cellId);
+      let adjacentMines = matchingCell.getNeighbors(this.board);
+      if(adjacentMines){//if neighbors are at least 1
+        this.showNeighbors(cellId,adjacentMines);
       }else{//if neighbors is 0 means we have to expand
-        matchingCell.expand(cellId);
+        matchingCell.expand(this.board);
+      
       }
     }
+    
   }
 
   flag(cellId){
@@ -158,20 +162,15 @@ export default class Board{
 
    // It's going to return a value from 0(no neighbors) to 8
 
-  showNeighbors(cellId){
+  showNeighbors(cellId,adjacentMines){
     const cell = this.getCellFromLogic(cellId);
-    const adjacentMines = cell.getNeighbors(this.board);
+    
 
     const cellElement = document.querySelector(`.js-cell-${cell.id}`);
             if (cellElement) {
                 // Muestra el número de minas adyacentes en el selector
                 cellElement.innerHTML = `${adjacentMines}`;
             }
-         else {
-            console.log('Celda no encontrada');
-        }
-
-    
   }
 
 
