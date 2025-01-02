@@ -154,9 +154,6 @@ export default class Board{
     } else {
       cellElement.classList.remove('js-flagged'); 
     }
-
-
-    console.log(`right click on ${cellId}`);
   }
 
    // It's going to return a value from 0(no neighbors) to 8
@@ -169,8 +166,6 @@ export default class Board{
             if (cellElement) {
                 // Muestra el número de minas adyacentes en el selector
                 cellElement.innerHTML = `${adjacentMines}`;
-                console.log('entra');
-                console.log(adjacentMines);
             }
          else {
             console.log('Celda no encontrada');
