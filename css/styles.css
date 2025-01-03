@@ -53,3 +53,18 @@
   align-items: center;
   gap: 10px;
 }
+
+.control-buttons{
+  margin-top: 20px;
+}
+
+.control-buttons button{
+  margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  border: none;
+  background: #4caf50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
