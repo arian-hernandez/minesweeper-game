@@ -3,22 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minesweeper</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Minesweeper Game</title>
+  <link rel="stylesheet" href="css/offgame.css">
 </head>
 <body>
-  <div id="game">
-    <h1>Minesweeper</h1>
-    <div class="game-status js-game-status">
-      <h4 class="difficulty-selected js-difficulty-selected"> Difficulty: Easy</h3>
-        <p class="mines-status js-mines-total">Total mines: 10</p>
-        <p class="mines-status js-mines-detected">Mines detected: 0</p>
-    </div>
-    <div class="board-game">
-      <div class="board">
-      </div>
+  <div class="main-menu">
+    <h1 class="title">Minesweeper</h1>
+    <div class="menu-options">
+      <button id="start-game">Start Game</button>
+      <button id="view-scores">Scores</button>
+      <button id="settings">Settings</button>
     </div>
   </div>
-  <script type="module" src="src/main.js"></script>
+
+  <div id="difficulty-modal" class="hidden">
+    <div class="modal-content">
+      <button class="close-modal" id="close-modal">&times;</button>
+      <h2>Choose Difficulty</h2>
+      <form id="difficulty-form">
+        <label>
+          <input type="radio" name="difficulty" value="easy" checked> Easy
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="normal"> Normal
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="hard"> Hard
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="extreme"> Extreme
+        </label>
+        <button type="submit">Start</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="src/offgame.js" type="module" defer></script>
 </body>
 </html>

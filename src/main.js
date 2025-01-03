@@ -2,27 +2,26 @@ import { Cell, SafeCell } from "./cell.js";
 import Board from "./board.js";
 import Game from "./game.js";
 
-//Test game
+// Esperar a que el DOM esté completamente cargado
+document.addEventListener("DOMContentLoaded", () => {
+  // Obtener los parámetros de la URL
+  const params = new URLSearchParams(window.location.search);
+  const difficulty = params.get("difficulty");
 
-const settings1 = {difficulty: 'easy'}
+  if (difficulty) {
+    const settings = { difficulty };
+    console.log("Starting game with settings:", settings);
 
-const game1 = new Game(settings1)
+    // Inicializar el juego
+    const game = new Game(settings);
+    const board = new Board(game);
+    
 
-const board1 = new Board(game1);
-
-board1.initializeBoard();
-
-
-
-
-
-console.log(board1);
-
-console.log(board1.getTotalCells());
-
-console.log(board1.getTotalSafeCells());
-
-
-
-
-
+    // Aquí puedes inicializar o renderizar el tablero
+    board.initializeBoard();
+  } else {
+    console.error("No difficulty selected!");
+    // Opcional: Redirigir de vuelta al menú principal
+    window.location.href = "index.html";
+  }
+});
