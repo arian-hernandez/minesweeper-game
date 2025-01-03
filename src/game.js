@@ -45,8 +45,11 @@ export default class Game {
     // Implementar lógica para verificar si el jugador ha ganado
   }
 
-  isLose() {
-    // Implementar lógica para verificar si el jugador ha perdido
+  lose(board) {
+    const loseText = document.querySelector('.js-title-baner');
+    loseText.innerHTML = 'Explotaste como cafunga';
+    
+    
   }
 
   timer() {

@@ -26,4 +26,6 @@ ElementResetButton.addEventListener('click',()=>{
   game = new Game(settings);
   board = new Board(game);
   board.initializeBoard();  
+  const loseText = document.querySelector('.js-title-baner');
+  loseText.innerHTML = 'Minesweeper again';
 });

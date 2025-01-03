@@ -23,7 +23,7 @@ export class SafeCell extends Cell{
     super(id, row, column); 
   }
 
-  getNeighbors(board) {
+  getNeighbors(board) {    
     let adjacentMines = 0;
 
     const directions = [
@@ -66,7 +66,7 @@ export class SafeCell extends Cell{
     if (this.isReleaved) return;
 
 
-    this.isReleaved = true
+    this.isReleaved = true;
     const cellElement = document.querySelector(`.js-cell-${this.id}`);
     cellElement.classList.add('js-safe'); 
 

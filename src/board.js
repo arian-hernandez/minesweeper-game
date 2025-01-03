@@ -8,12 +8,14 @@ export default class Board{
   numberOfMines;
   board;
   difficulty;
+  game;
 
   constructor(game) {
     this.rows = game.numberOfRows;
     this.columns = game.numberOfColumns;
     this.numberOfMines = game.numberOfMines;
     this.difficulty = game.difficulty;
+    this.game = game;
 
     // Generar el tablero con las celdas
     this.board = Array.from({ length: this.rows }, (row, rowIndex) =>
@@ -144,10 +146,14 @@ export default class Board{
     if (matchingCell.isReleaved) return; // already revealed
     
     
-    if(matchingCell.isMine()){
-      alert('booom exploto mi pequenna moli');//implement lose here
+    if(matchingCell.isMine(game)){
+      this.disableBoard();
+      this.game.lose();
+      //reveal bombs
+      
     }else{
       let adjacentMines = matchingCell.getNeighbors(this.board);
+      
       if(adjacentMines){//if neighbors are at least 1
         this.showNeighbors(cellId,adjacentMines);
       }else{//if neighbors is 0 means we have to expand
@@ -159,7 +165,9 @@ export default class Board{
   }
 
   flag(cellId){
+    
     let matchingCell = this.getCellFromLogic(cellId);
+    if (matchingCell.isReleaved) return; // already revealed
     
     matchingCell.isFlagged = !matchingCell.isFlagged;
 
@@ -196,6 +204,19 @@ export default class Board{
     const flaggedElement = document.querySelector('.js-mines-detected');
     const counter = this.getTotalCellFlagged();
     flaggedElement.textContent = `Mines detected: ${counter}`;
+  }
+
+  disableBoard() {
+    // Selecciona todas las celdas en el DOM
+    const cells = document.querySelectorAll('.js-cell');
+  
+    // Remueve los event listeners de cada celda
+    cells.forEach((cell) => {
+      const newCell = cell.cloneNode(true); // Crea una copia del nodo sin los event listeners
+      cell.replaceWith(newCell); // Reemplaza el nodo original con el nuevo nodo
+    });
+    const flaggedElement = document.querySelector('.js-mines-detected');
+    flaggedElement.textContent = 'Mines detected: 0';
   }
 
 
