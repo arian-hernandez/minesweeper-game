@@ -117,6 +117,17 @@ export default class Board{
   return numberSafeCell;
   } 
 
+  getTotalCellFlagged(){
+    let totalFlagged = 0;
+    this.board.flat().forEach((cell)=>{
+      if(cell.isFlagged){
+        totalFlagged++;
+      }
+    });
+    return totalFlagged;
+    }
+  
+
   getCellFromLogic(cellId){
     let matchingCell;
     this.board.flat().forEach((cell)=>{
@@ -158,6 +169,7 @@ export default class Board{
     } else {
       cellElement.classList.remove('js-flagged'); 
     }
+    this.updateMinesStatus();
   }
 
    // It's going to return a value from 0(no neighbors) to 8
@@ -173,11 +185,25 @@ export default class Board{
             }
   }
 
+  updateDifficultyGame(){
+    const difficultyElement = document.querySelector('.js-difficulty-selected');
+    difficultyElement.textContent = `Difficulty: ${this.difficulty}`;
+    const minesElement = document.querySelector('.js-mines-total');
+    minesElement.textContent = `Total mines: ${this.numberOfMines}`;
+  }
+
+  updateMinesStatus(){
+    const flaggedElement = document.querySelector('.js-mines-detected');
+    const counter = this.getTotalCellFlagged();
+    flaggedElement.textContent = `Mines detected: ${counter}`;
+  }
+
 
   initializeBoard(){
     this.setMines();
     this.setSafeCells();
     this.renderBoard();
+    this.updateDifficultyGame();
   }
 
 
