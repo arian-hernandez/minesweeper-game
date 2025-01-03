@@ -134,7 +134,7 @@ export default class Board{
     
     
     if(matchingCell.isMine()){
-      console.log('booom');//implement lose here
+      alert('booom exploto mi pequenna moli');//implement lose here
     }else{
       let adjacentMines = matchingCell.getNeighbors(this.board);
       if(adjacentMines){//if neighbors are at least 1

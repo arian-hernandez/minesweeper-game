@@ -71,9 +71,9 @@ export class SafeCell extends Cell{
     cellElement.classList.add('js-safe'); 
 
     const directions = [
-               [-1, 0], 
-      [0, -1],         [0, 1],
-               [1, 0] 
+      [-1, -1], [-1, 0], [-1, 1],
+        [0, -1],         [0, 1],
+        [1, -1], [1, 0], [1, 1]
     ];
 
     for (const [dx, dy] of directions) {
