@@ -43,13 +43,13 @@ export default class Game {
 
   win(board) {
     // Implementar lógica para verificar si el jugador ha ganado
-    alert('ganaste');
-    console.log('entro en win');
+    showWinPopup();
   }
 
   lose(board) {
     const loseText = document.querySelector('.js-title-baner');
     loseText.innerHTML = 'Explotaste como cafunga';
+    showLosePopup();
     
     
   }
@@ -59,3 +59,40 @@ export default class Game {
   }
 
 }
+
+// Mostrar el popup
+function showWinPopup() {
+  const popup = document.getElementById("end-popup");
+  popup.classList.remove("hidden");
+  popup.innerHTML = `
+   <div class="popup-content">
+      <h2>This field is safe now <br><b>thanks to you.</b></h2>
+      <p>You discovered all the mines in the board.</p>
+      <button id="close-popup">Hurray!</button>
+    </div>
+  `;
+  document.getElementById("close-popup").addEventListener("click", hideEndPopup);
+}
+
+function showLosePopup() {
+  const popup = document.getElementById("end-popup");
+  popup.classList.remove("hidden");
+  popup.innerHTML = `
+   <div class="popup-content">
+      <h2>You blew it, literally...</b></h2>
+      <p>But because it's just a game you can try again.</p>
+      <button id="close-popup">Oopsy</button>
+    </div>
+  `;
+  document.getElementById("close-popup").addEventListener("click", hideEndPopup);
+}
+
+// Ocultar el popup
+function hideEndPopup() {
+  const popup = document.getElementById("end-popup");
+  popup.classList.add("hidden");
+}
+
+
+
+

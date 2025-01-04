@@ -27,5 +27,6 @@ ElementResetButton.addEventListener('click',()=>{
   board = new Board(game);
   board.initializeBoard();  
   const loseText = document.querySelector('.js-title-baner');
-  loseText.innerHTML = 'Minesweeper again';
+  loseText.innerHTML = 'Minesweeper';
+  //in the future reset score here
 });
