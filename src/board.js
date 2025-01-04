@@ -143,7 +143,7 @@ export default class Board{
 
   reveal(cellId){
     let matchingCell = this.getCellFromLogic(cellId);
-    if (matchingCell.isReleaved) return; // already revealed
+    if (matchingCell.isRevealed) return; // already revealed
     
     
     if(matchingCell.isMine(game)){
@@ -161,13 +161,13 @@ export default class Board{
       
       }
     }
-    
+    this.isWin();
   }
 
   flag(cellId){
     
     let matchingCell = this.getCellFromLogic(cellId);
-    if (matchingCell.isReleaved) return; // already revealed
+    if (matchingCell.isRevealed) return; // already revealed
     
     matchingCell.isFlagged = !matchingCell.isFlagged;
 
@@ -178,12 +178,14 @@ export default class Board{
       cellElement.classList.remove('js-flagged'); 
     }
     this.updateMinesStatus();
+    this.isWin();
   }
 
    // It's going to return a value from 0(no neighbors) to 8
 
   showNeighbors(cellId,adjacentMines){
     const cell = this.getCellFromLogic(cellId);
+    this.getCellFromLogic(cellId).isRevealed = true;
     
 
     const cellElement = document.querySelector(`.js-cell-${cell.id}`);
@@ -217,6 +219,28 @@ export default class Board{
     });
     const flaggedElement = document.querySelector('.js-mines-detected');
     flaggedElement.textContent = 'Mines detected: 0';
+  }
+
+  isWin(){
+    let bombsFlagged = 0;
+    let cellsRevealed = 0;
+    let cellsFlagged = 0;
+    
+    this.board.flat().forEach((cell)=>{
+      if(cell.isFlagged){cellsFlagged++;}
+      if(cell.isRevealed){cellsRevealed++;}
+      if(!(cell instanceof SafeCell)){
+        if(cell.isFlagged){
+          bombsFlagged++;
+        }
+      }
+    });
+
+    console.log('bombas reales marcads',bombsFlagged);
+    console.log('celdas reveladas',cellsRevealed);
+    if(bombsFlagged === this.numberOfMines && (cellsRevealed + cellsFlagged) === this.board.flat().length){
+      this.game.win();
+    }
   }
 
 

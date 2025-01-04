@@ -50,10 +50,10 @@ describe("Board Logic", () => {
     spyOn(cells[1][1], "expand").and.callThrough();
     cells[1][1].expand(board);
 
-    expect(cells[1][1].isReleaved).toBeTrue();
-    expect(cells[1][0].isReleaved).toBeTrue(); // Vecino vacío
-    expect(cells[0][0].isReleaved).toBeTrue(); // Vecino vacío
-    expect(cells[0][1].isReleaved).toBeFalse(); // Mina vecina, no se expande
+    expect(cells[1][1].isRevealed).toBeTrue();
+    expect(cells[1][0].isRevealed).toBeTrue(); // Vecino vacío
+    expect(cells[0][0].isRevealed).toBeTrue(); // Vecino vacío
+    expect(cells[0][1].isRevealed).toBeFalse(); // Mina vecina, no se expande
   });
 });
 

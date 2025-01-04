@@ -41,8 +41,10 @@ export default class Game {
     }
   }
 
-  isWin(board) {
+  win(board) {
     // Implementar lógica para verificar si el jugador ha ganado
+    alert('ganaste');
+    console.log('entro en win');
   }
 
   lose(board) {

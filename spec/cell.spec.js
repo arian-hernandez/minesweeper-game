@@ -17,7 +17,7 @@ describe('Cell', () => {
   it('should initialize with default properties', () => {
     expect(cell.value).toBe(0);
     expect(cell.isFlagged).toBe(false);
-    expect(cell.isReleaved).toBe(false);
+    expect(cell.isRevealed).toBe(false);
   });
 });
 
@@ -79,7 +79,7 @@ describe("Cell Logic", () => {
   });
 
   it("no debe volver a expandir celdas ya reveladas", () => {
-    cells[1][1].isReleaved = true; // Simular una celda ya revelada
+    cells[1][1].isRevealed = true; // Simular una celda ya revelada
 
     spyOn(cells[1][1], "expand").and.callThrough();
     cells[1][1].expand(board);

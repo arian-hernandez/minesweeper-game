@@ -1,7 +1,7 @@
 export class Cell {
   value = 0; //0 or 1
   isFlagged = false; // true or false
-  isReleaved = false;
+  isRevealed = false;
   id;
   row;
   column;
@@ -63,10 +63,10 @@ export class SafeCell extends Cell{
   */
   expand(board){
 
-    if (this.isReleaved) return;
+    if (this.isRevealed) return;
 
 
-    this.isReleaved = true;
+    this.isRevealed = true;
     const cellElement = document.querySelector(`.js-cell-${this.id}`);
     cellElement.classList.add('js-safe'); 
 
@@ -88,17 +88,19 @@ export class SafeCell extends Cell{
           newCol < board[0].length
       ) {
         const neighborCell = board[newRow][newCol];
-        if (neighborCell.isReleaved) continue;
+        if (neighborCell.isRevealed) continue;
+        
         const adjacentMines = neighborCell.getNeighbors(board);
 
         if(adjacentMines === 0){
 
         neighborCell.expand(board);
+        
         }
         else{
           const cellElement = document.querySelector(`.js-cell-${neighborCell.id}`);
           cellElement.innerHTML = `${adjacentMines}`;
-
+          neighborCell.isRevealed = true;
         }
         
       }
