@@ -40,7 +40,7 @@
 
 .cell.js-flagged {
   background-color: #ddd;
-  background-image: url('../assets/images/red-flag.gif'); /* Opcional */
+  background-image: url('../assets/images/red-flag.gif');
   background-size: cover;
   background-position: center;
 }
@@ -48,6 +48,17 @@
 .cell.js-safe{
   background-color: transparent;
   border: none;
+}
+
+
+.js-mine-revealed{
+  background-color: #c51919;
+  background-image: url('../assets/images/mine.png');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.2);
+  transition: all 0.3s ease-in-out;
+  
 }
 
 .game-status{

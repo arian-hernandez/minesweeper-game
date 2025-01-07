@@ -138,15 +138,33 @@ export default class Board{
     return matchingCell;
   }
 
+  async handleMineReveal() {
+    try {
+      this.disableBoard();
+      await this.revealMines();
+      this.game.lose();
+    } catch (error) {
+      console.error("Algo salió mal al revelar las minas:", error);
+    }
+  }
+
+
   reveal(cellId){
     let matchingCell = this.getCellFromLogic(cellId);
     if (matchingCell.isRevealed) return; // already revealed
     
     
     if(matchingCell.isMine(game)){
-      this.disableBoard();
-      this.game.lose();
-      //reveal bombs
+    
+    this.handleMineReveal();
+     
+
+      //       this.disableBoard();
+//       this.revealMines().then(() => {
+//       this.game.lose();
+// });
+
+      
       
     }else{
       let adjacentMines = matchingCell.getNeighbors(this.board);
@@ -238,6 +256,29 @@ export default class Board{
       this.game.win();
     }
   }
+
+  revealMines() {
+    return new Promise((resolve) => {
+      const mines = this.board.flat().filter(cell => cell.isMine());
+  
+      mines.forEach((cell, index) => {
+        setTimeout(() => {
+          const mineElement = document.querySelector(`[data-id="${cell.id}"]`);
+          if (mineElement) {
+            mineElement.classList.add('js-mine-revealed');
+          }
+          // Si es la última mina, resolvemos la promesa
+          if (index === mines.length - 1) {
+            resolve();
+          }
+        }, index * 50); // Retraso de 100 ms por mina
+      });
+    });
+  }
+  
+  
+
+
 
 
   initializeBoard(){
