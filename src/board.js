@@ -17,13 +17,14 @@ export default class Board{
     this.difficulty = game.difficulty;
     this.game = game;
 
-    // Generar el tablero con las celdas
+    // Update the board generation with new ID format
     this.board = Array.from({ length: this.rows }, (row, rowIndex) =>
       Array.from({ length: this.columns }, (col, colIndex) => {
-        const id = `${rowIndex}${colIndex}`; // ID único basado en fila y columna
-        return new Cell(id, rowIndex, colIndex); // Pasar ID, fila y columna al constructor
+        const id = `cell-${rowIndex}-${colIndex}`; // New ID format using dashes
+        return new Cell(id, rowIndex, colIndex);
       })
     );
+    console.log(this.board);
   }
 
   setMines(){
@@ -57,43 +58,39 @@ export default class Board{
   }
 
 
-  renderBoard(){
-    let boardHTML = '';
-    let currentRow;
-    let currentColumn;
 
+  renderBoard() {
+    let boardHTML = '';
     boardHTML += `<div class="board board-${this.difficulty}">`
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.columns; j++) {
-        
         boardHTML += `
-        <div class="cell js-cell js-cell-${i}${j}" data-row="${i}" data-column="${j}" data-id="${i}${j}"></div>
-        `
-        }
+          <div class="cell js-cell js-cell-${i}-${j}" 
+               data-row="${i}" 
+               data-column="${j}" 
+               data-id="cell-${i}-${j}"
+               title="Cell ${i},${j}">
+          </div>
+        `;
+      }
     }
-  boardHTML += `</div">`
+    boardHTML += `</div>`
 
-    document.querySelector('.board')
-    .innerHTML = boardHTML;
+    document.querySelector('.board').innerHTML = boardHTML;
 
+    // Update event listeners to use new ID format
+    document.querySelectorAll('.js-cell').forEach((cell) => {
+      cell.addEventListener('click', () => {
+        const cellId = cell.dataset.id;
+        this.reveal(cellId);
+      });
 
-    document.querySelectorAll('.js-cell')
-  .forEach((cell)=>{
-    cell.addEventListener('click',() => {
-      const cellId = cell.dataset.id;
-      this.reveal(cellId);
+      cell.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        const cellId = cell.dataset.id;
+        this.flag(cellId);
+      });
     });
-  });
-
-  document.querySelectorAll('.js-cell')
-  .forEach((cell)=>{
-    cell.addEventListener('contextmenu', (event) => {
-      event.preventDefault(); //prevents default right click from happening
-      const cellId = cell.dataset.id;
-      this.flag(cellId); 
-    });
-  });
-    
   }
 
   getTotalCells(){
@@ -183,17 +180,16 @@ export default class Board{
 
    // It's going to return a value from 0(no neighbors) to 8
 
-  showNeighbors(cellId,adjacentMines){
+   showNeighbors(cellId, adjacentMines) {
     const cell = this.getCellFromLogic(cellId);
     this.getCellFromLogic(cellId).isRevealed = true;
-    
 
-    const cellElement = document.querySelector(`.js-cell-${cell.id}`);
-            if (cellElement) {
-                // Muestra el número de minas adyacentes en el selector
-                cellElement.innerHTML = `${adjacentMines}`;
-            }
+    const cellElement = document.querySelector(`.js-cell-${cell.row}-${cell.column}`);
+    if (cellElement) {
+      cellElement.innerHTML = `${adjacentMines}`;
+    }
   }
+
 
   updateDifficultyGame(){
     const difficultyElement = document.querySelector('.js-difficulty-selected');
