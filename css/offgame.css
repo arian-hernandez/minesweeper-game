@@ -111,4 +111,6 @@ body {
   transform: scale(1.2);
 }
 
-
+.copyright{
+  color: #333;
+}
