@@ -30,3 +30,8 @@ ElementResetButton.addEventListener('click',()=>{
   loseText.innerHTML = 'Minesweeper';
   //in the future reset score here
 });
+
+const elementTrampa = document.querySelector('.js-latrampa');
+elementTrampa.addEventListener('click',()=>{
+  board.revealMines();
+});

@@ -1,3 +1,11 @@
+.latrampa{
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  color: white;
+  cursor: grab;
+}
+
 .board {
   display: grid;
   gap: 2px; /* Espacio entre celdas */

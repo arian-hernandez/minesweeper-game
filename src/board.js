@@ -288,8 +288,6 @@ export default class Board{
     this.updateDifficultyGame();
   }
 
-
-
 }
 
 
