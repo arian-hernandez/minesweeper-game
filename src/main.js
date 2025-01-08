@@ -23,6 +23,10 @@ import Game from "./game.js";
 
 const ElementResetButton = document.querySelector('.js-reset-button');
 ElementResetButton.addEventListener('click',()=>{
+  if (board) {
+    board.cancelRevealMines(); // Detener animación
+  }
+  
   game = new Game(settings);
   board = new Board(game);
   board.initializeBoard();  

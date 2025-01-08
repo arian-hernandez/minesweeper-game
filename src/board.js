@@ -258,23 +258,35 @@ export default class Board{
   }
 
   revealMines() {
+    this.mineRevealTimeouts = []; // Almacenar los timeouts
     return new Promise((resolve) => {
       const mines = this.board.flat().filter(cell => cell.isMine());
   
       mines.forEach((cell, index) => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
           const mineElement = document.querySelector(`[data-id="${cell.id}"]`);
           if (mineElement) {
             mineElement.classList.add('js-mine-revealed');
           }
-          // Si es la última mina, resolvemos la promesa
+          // Si es el último, completamos la promesa
           if (index === mines.length - 1) {
             resolve();
           }
-        }, index * 50); // Retraso de 100 ms por mina
+        }, index * 50); // 50ms de retraso por mina
+  
+        this.mineRevealTimeouts.push(timeout); // Guardar timeout
       });
     });
   }
+
+  cancelRevealMines() {
+    if (this.mineRevealTimeouts) {
+      this.mineRevealTimeouts.forEach(timeout => clearTimeout(timeout));
+      this.mineRevealTimeouts = []; // Limpiar los timeouts
+    }
+  }
+  
+  
   
   
 
