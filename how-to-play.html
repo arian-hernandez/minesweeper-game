@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Play Minesweeper</title>
+  <link rel="stylesheet" href="css/how-to-play.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="how-to-play-container">
+    <h1>How to Play Minesweeper</h1>
+    <p>Welcome to Minesweeper! Here are the basics:</p>
+    <ul>
+      <li>Left-click on a cell to reveal it.</li>
+      <li>Right-click to place a flag on suspected mines.</li>
+      <li>Reveal all non-mine cells to win!</li>
+      <li>If you click on a mine, you lose.</li>
+    </ul>
+    <p>Numbers on revealed cells show how many mines are adjacent (including diagonals).</p>
+    <div class="example-boards">
+      <div class="example">
+        <h2>Placing a Flag</h2>
+        <div id="flag-board" class="board"></div>
+      </div>
+      <div class="example">
+        <h2>Exploding a Mine</h2>
+        <div id="mine-board" class="board"></div>
+      </div>
+    </div>
+    <a href="index.html"><button class="close-btn">Close</button></a>
+  </div>
+
+  <script src="src/how-to-play.js"></script>
+</body>
+</html>

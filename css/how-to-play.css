@@ -1,0 +1,92 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.how-to-play-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+}
+
+.how-to-play-container h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.how-to-play-container p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.how-to-play-container ul {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.how-to-play-container ul li {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.example {
+  margin: 20px 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  gap: 5px;
+  justify-content: center;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 40px;
+  font-size: 18px;
+  background: #e8e8e8;
+  cursor: pointer;
+}
+
+.cell.flag {
+  background: #ffd700;
+}
+
+.cell.mine {
+  background: #ff6347;
+  color: white;
+}
+
+.close-btn {
+  background: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #0056b3;
+}
+
+.example-boards {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
