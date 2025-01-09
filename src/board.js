@@ -176,6 +176,16 @@ export default class Board{
       if(adjacentMines){//if neighbors are at least 1
         this.showNeighbors(cellId,adjacentMines);
       }else{//if neighbors is 0 means we have to expand
+        
+          // add the shake effect
+      const gameBoard = document.querySelector('.board-game');
+      gameBoard.classList.add('shake');
+
+      // Remove it so it stops shaking it
+      setTimeout(() => {
+        gameBoard.classList.remove('shake');
+      }, 300); // time of the sgaki shaki
+
         matchingCell.expand(this.board);
         this.updateMinesStatus();
       
