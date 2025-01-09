@@ -17,6 +17,18 @@ export class AudioManager {
       console.error(`Sound ${soundKey} not found!`);
     }
   }
+
+  stopSound(soundKey){
+    const sound = this.sounds[soundKey];
+    if (sound) {
+      sound.pause();
+    } else {
+      console.error(`Sound ${soundKey} not found!`);
+    }
+  }
+
 }
+
+  
 
 export const audioManager = new AudioManager();

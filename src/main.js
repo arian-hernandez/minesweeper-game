@@ -2,6 +2,7 @@ import { Cell, SafeCell } from "./cell.js";
 import Board from "./board.js";
 import Game from "./game.js";
 import Timer from "./timer.js";
+import { audioManager } from "./audio-manager.js";
 
 // Obtener los parámetros de la URL
 const params = new URLSearchParams(window.location.search);
@@ -25,7 +26,10 @@ const ElementResetButton = document.querySelector('.js-reset-button');
 ElementResetButton.addEventListener('click',()=>{
   if (board) {
     board.cancelRevealMines(); // Detener animación
+    audioManager.stopSound('lose');
   }
+
+  
   
   game = new Game(settings);
   board = new Board(game);
