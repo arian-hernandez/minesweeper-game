@@ -1,10 +1,12 @@
 import Board from "./board.js";
+import Timer from "./timer.js";
 
 export default class Game {
   difficulty = "easy";
   numberOfRows = 5;
   numberOfColumns = 5;
   numberOfMines = 8;
+  seconds = 0;
 
   constructor(settings) {
     if (settings && settings.difficulty) {
@@ -16,24 +18,28 @@ export default class Game {
         this.numberOfRows = 8;
         this.numberOfColumns = 8;
         this.numberOfMines = 10;
+        this.seconds = 120;
         break;
 
       case "normal":
         this.numberOfRows = 16;
         this.numberOfColumns = 16;
         this.numberOfMines = 40;
+        this.seconds = 120;
         break;
 
       case "hard":
         this.numberOfRows = 16;
         this.numberOfColumns = 30;
         this.numberOfMines = 99;
+        this.seconds = 320;
         break;
 
       case "extreme":
         this.numberOfRows = 24;
         this.numberOfColumns = 30;
         this.numberOfMines = 200;
+        this.seconds = 420;
         break;
 
       default:
@@ -50,6 +56,9 @@ export default class Game {
     const loseText = document.querySelector('.js-title-baner');
     loseText.innerHTML = 'Explotaste como cafunga';
     showLosePopup();
+    
+    
+
     
     
   }
@@ -74,7 +83,7 @@ function showWinPopup() {
   document.getElementById("close-popup").addEventListener("click", hideEndPopup);
 }
 
-function showLosePopup() {
+export function showLosePopup() {
   const popup = document.getElementById("end-popup");
   popup.classList.remove("hidden");
   popup.innerHTML = `

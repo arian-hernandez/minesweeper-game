@@ -144,7 +144,7 @@ export default class Board{
       await this.revealMines();
       this.game.lose();
     } catch (error) {
-      console.error("Algo salió mal al revelar las minas:", error);
+      console.error("something when wrong revealing cell young Arian", error);
     }
   }
 
