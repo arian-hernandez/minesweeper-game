@@ -93,6 +93,11 @@ function hideEndPopup() {
   popup.classList.add("hidden");
 }
 
+//get the theme customization
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+
 
 
 

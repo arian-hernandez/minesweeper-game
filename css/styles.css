@@ -1,72 +1,160 @@
-.latrampa{
+:root {
+  /* Global Colors */
+  --global-color-primary: #6A9E34;
+  --global-color-secondary: #D6E685;
+  --global-color-text: #000000;
+  --global-color-accent: #FF4136;
+  --global-color-highlight: #FFD700;
+
+  /* Enhanced Number Colors */
+  --number-color-1: #2196F3;  /* Bright Blue */
+  --number-color-2: #4CAF50;  /* Bright Green */
+  --number-color-3: #FF5722;  /* Deep Orange */
+  --number-color-4: #9C27B0;  /* Purple */
+  --number-color-5: #FF1744;  /* Red */
+  --number-color-6: #00BCD4;  /* Cyan */
+  --number-color-7: #212121;  /* Almost Black */
+  --number-color-8: #757575;  /* Grey */
+
+  /* Other styles */
+  --global-border-color: #AAB07E;
+  --global-bg-dark: #495A33;
+  --global-bg-light: #E5F5CC;
+}
+
+/* Light Theme (default) */
+:root {
+  --bg-color: var(--global-bg-light);
+  --text-color: var(--global-color-text);
+  --cell-bg: var(--global-color-secondary);
+  --cell-border: var(--global-border-color);
+  --button-bg: var(--global-color-primary);
+  --button-text: white;
+  --popup-bg: white;
+  --popup-shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-color: var(--global-bg-dark);
+  --text-color: white;
+  --cell-bg: var(--global-color-primary);
+  --cell-border: var(--global-border-color);
+  --button-bg: var(--global-color-secondary);
+  --button-text: var(--global-color-text);
+  --popup-bg: var(--global-bg-dark);
+  --popup-shadow: rgba(255, 255, 255, 0.1);
+
+  /* Dark theme number colors - brighter versions for better visibility */
+  --theme-number-1: #64B5F6;  /* Lighter Blue */
+  --theme-number-2: #81C784;  /* Lighter Green */
+  --theme-number-3: #FF8A65;  /* Lighter Orange */
+  --theme-number-4: #BA68C8;  /* Lighter Purple */
+  --theme-number-5: #FF5252;  /* Lighter Red */
+  --theme-number-6: #4DD0E1;  /* Lighter Cyan */
+  --theme-number-7: #E0E0E0;  /* Light Grey */
+  --theme-number-8: #BDBDBD;  /* Lighter Grey */
+}
+
+html {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+body {
+  transition: background-color 0.3s ease;
+}
+
+.latrampa {
   right: 0;
   bottom: 0;
   position: absolute;
-  color: white;
+  color: var(--text-color);
   cursor: grab;
 }
 
 .modal-content {
-  border: 2px solid #4caf50;
-  box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  border: 2px solid var(--global-color-primary);
+  box-shadow: 0 0 15px var(--global-color-primary);
 }
-
 
 .board {
   display: grid;
-  gap: 2px; /* Espacio entre celdas */
+  gap: 2px;
   max-width: 100%;
   overflow-x: auto;
   padding: 10px;
 }
 
-.board-easy{
-  grid-template-columns: repeat(8, 20px); 
-  grid-template-rows: repeat(8, 20px);   
+/* Adjusted grid sizes for different board dimensions */
+.board-easy { 
+  grid-template-columns: repeat(8, 35px); 
+  grid-template-rows: repeat(8, 35px);
 }
 
-.board-normal{
-  grid-template-columns: repeat(16, 20px); 
-  grid-template-rows: repeat(16, 20px);   
+.board-normal { 
+  grid-template-columns: repeat(16, 25px); 
+  grid-template-rows: repeat(16, 25px);
 }
 
-.board-hard{
+.board-hard { 
   grid-template-columns: repeat(30, 20px); 
-  grid-template-rows: repeat(16, 20px);   
+  grid-template-rows: repeat(16, 20px);
 }
 
-.board-extreme{
+.board-extreme { 
   grid-template-columns: repeat(30, 20px); 
-  grid-template-rows: repeat(24, 20px);   
+  grid-template-rows: repeat(24, 20px);
 }
 
-
+/* Base cell styles with size adjustments for different board sizes */
 .cell {
+  background-color: var(--cell-bg);
+  border: 1px solid var(--cell-border);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+/* Cell sizes for different board types */
+.board-easy .cell {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 18px;
+}
+
+.board-normal .cell {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 16px;
+}
+
+.board-hard .cell,
+.board-extreme .cell {
   width: 20px;
   height: 20px;
-  background-color: #ddd;
-  border: 1px solid #aaa;
-  text-align: center;
-  line-height: 20px; /* Para centrar el texto verticalmente */
+  line-height: 20px;
   font-size: 14px;
-  cursor: pointer;
 }
 
 .cell.js-flagged {
-  background-color: #ddd;
+  background-color: var(--cell-bg);
   background-image: url('../assets/images/red-flag.gif');
   background-size: cover;
   background-position: center;
 }
 
-.cell.js-safe{
+.cell.js-safe {
   background-color: transparent;
   border: none;
   animation: reveal 0.3s ease-in-out;
 }
 
-.js-mine-revealed{
-  background-color: #c51919;
+.js-mine-revealed {
+  background-color: var(--global-color-accent);
   background-image: url('../assets/images/mine.png');
   background-size: cover;
   background-position: center;
@@ -74,35 +162,44 @@
   transition: all 0.3s ease-in-out;
 }
 
-.cell[data-neighbors="1"] { color: blue; }
-.cell[data-neighbors="2"] { color: green; }
-.cell[data-neighbors="3"] { color: red; }
+/* Enhanced number colors with text shadow for better visibility */
+.cell[data-neighbors="1"] { color: var(--number-color-1) !important; }
+.cell[data-neighbors="2"] { color: var(--number-color-2) !important; }
+.cell[data-neighbors="3"] { color: var(--number-color-3) !important; }
+.cell[data-neighbors="4"] { color: var(--number-color-4) !important; }
+.cell[data-neighbors="5"] { color: var(--number-color-5) !important; }
+.cell[data-neighbors="6"] { color: var(--number-color-6) !important; }
+.cell[data-neighbors="7"] { color: var(--number-color-7) !important; }
+.cell[data-neighbors="8"] { color: var(--number-color-8) !important; }
 
-
-.game-status{
+.game-status {
   margin-top: -30px;
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--text-color);
 }
 
-.control-buttons{
+.control-buttons {
   margin-top: 20px;
 }
 
-.control-buttons button{
+.control-buttons button {
   margin-top: 5px;
   padding: 5px 10px;
   font-size: 1rem;
   border: none;
-  background: #4caf50;
-  color: white;
+  background: var(--button-bg);
+  color: var(--button-text);
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.control-buttons button:hover {
+  filter: brightness(1.1);
+}
 
-/* Estilos del popup */
 .popup {
   position: fixed;
   top: 0;
@@ -123,50 +220,77 @@
 }
 
 .popup-content {
-  background-color: white;
+  background-color: var(--popup-bg);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px var(--popup-shadow);
   text-align: center;
   width: 300px;
 }
 
 .popup-content h2 {
   margin: 0 0 10px;
-  color: #4CAF50;
+  color: var(--global-color-primary);
 }
 
 .popup-content p {
   margin: 0 0 20px;
   font-size: 16px;
-  color: #333;
 }
 
 .popup-content button {
-  background-color: #4CAF50;
+  background-color: var(--global-color-primary);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .popup-content button:hover {
-  background-color: #45a049;
+  filter: brightness(1.1);
 }
 
-
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 @media (max-width: 800px) {
-  .board {
-    padding: 5px;
+  .board-easy .cell {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
   }
   
-  .cell {
+  .board-normal .cell {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+  }
+  
+  .board-hard .cell,
+  .board-extreme .cell {
     width: 18px;
     height: 18px;
     line-height: 18px;
     font-size: 12px;
   }
+}
+
+.cell.js-safe,
+.cell[data-neighbors] {
+  background-image: none !important;
+  background-color: transparent;
 }

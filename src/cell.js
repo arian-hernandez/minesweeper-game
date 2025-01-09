@@ -65,6 +65,7 @@ export class SafeCell extends Cell{
     if (this.isRevealed) return;
   
     this.isRevealed = true;
+    this.isFlagged = false; // Remove flag if it exists
     const cellElement = document.querySelector(`.js-cell-${this.row}-${this.column}`);
     cellElement.classList.add('js-safe');
   
@@ -88,6 +89,14 @@ export class SafeCell extends Cell{
         if (neighborCell.isRevealed) continue;
         
         const adjacentMines = neighborCell.getNeighbors(board);
+        const cellElement = document.querySelector(`.js-cell-${neighborCell.row}-${neighborCell.column}`);
+      
+      // Remove flag if cell was flagged
+      if (neighborCell.isFlagged) {
+        neighborCell.isFlagged = false;
+        cellElement.classList.remove('js-flagged');
+      }
+
   
         if (adjacentMines === 0) {
           neighborCell.expand(board);

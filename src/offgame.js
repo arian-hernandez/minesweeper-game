@@ -23,3 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = `game.html?difficulty=${difficulty}`;
   });
 });
+
+
+// src/theme-toggle.js
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("theme-toggle");
+
+  // Aplica el tema almacenado en localStorage
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  toggle.checked = savedTheme === "dark";
+
+  // Cambia el tema cuando el usuario haga toggle
+  toggle.addEventListener("change", () => {
+    const theme = toggle.checked ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme); // Guarda preferencia del usuario
+  });
+});

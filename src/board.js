@@ -204,7 +204,9 @@ export default class Board{
 
     const cellElement = document.querySelector(`.js-cell-${cell.row}-${cell.column}`);
     if (cellElement) {
+      cellElement.classList.remove('js-flagged'); // Remove flag class
       cellElement.innerHTML = `${adjacentMines}`;
+      cellElement.setAttribute('data-neighbors', adjacentMines); // Add data attribute
     }
   }
 
