@@ -173,6 +173,7 @@ export default class Board{
         this.showNeighbors(cellId,adjacentMines);
       }else{//if neighbors is 0 means we have to expand
         matchingCell.expand(this.board);
+        this.updateMinesStatus();
       
       }
     }

@@ -103,6 +103,7 @@ export class SafeCell extends Cell{
         } else {
           const cellElement = document.querySelector(`.js-cell-${neighborCell.row}-${neighborCell.column}`);
           cellElement.innerHTML = `${adjacentMines}`;
+          cellElement.setAttribute('data-neighbors', adjacentMines);
           neighborCell.isRevealed = true;
         }
       }
