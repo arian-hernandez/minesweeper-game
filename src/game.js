@@ -7,6 +7,7 @@ export default class Game {
   numberOfColumns = 5;
   numberOfMines = 8;
   seconds = 0;
+  timer = null; // Add timer reference
 
   constructor(settings) {
     if (settings && settings.difficulty) {
@@ -18,28 +19,28 @@ export default class Game {
         this.numberOfRows = 8;
         this.numberOfColumns = 8;
         this.numberOfMines = 10;
-        this.seconds = 120;
+        this.seconds = 60;
         break;
 
       case "normal":
         this.numberOfRows = 16;
         this.numberOfColumns = 16;
         this.numberOfMines = 40;
-        this.seconds = 120;
+        this.seconds = 180;
         break;
 
       case "hard":
         this.numberOfRows = 16;
         this.numberOfColumns = 30;
         this.numberOfMines = 99;
-        this.seconds = 320;
+        this.seconds = 300;
         break;
 
       case "extreme":
         this.numberOfRows = 24;
         this.numberOfColumns = 30;
         this.numberOfMines = 200;
-        this.seconds = 420;
+        this.seconds = 480;
         break;
 
       default:
@@ -47,26 +48,25 @@ export default class Game {
     }
   }
 
-  win(board) {
-    // Implementar lógica para verificar si el jugador ha ganado
+  setTimer(timer) {
+    this.timer = timer;
+  }
+
+  win() {
+    if (this.timer) {
+      this.timer.stop();
+    }
     showWinPopup();
   }
 
-  lose(board) {
+  lose() {
+    if (this.timer) {
+      this.timer.stop();
+    }
     const loseText = document.querySelector('.js-title-baner');
     loseText.innerHTML = 'Explotaste como cafunga';
     showLosePopup();
-    
-    
-
-    
-    
   }
-
-  timer() {
-    // Implementar lógica para el temporizador
-  }
-
 }
 
 // Mostrar el popup
@@ -105,8 +105,3 @@ function hideEndPopup() {
 //get the theme customization
 const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
-
-
-
-
-
