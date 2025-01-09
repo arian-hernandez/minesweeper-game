@@ -1,6 +1,7 @@
 import { Cell, SafeCell } from "./cell.js";
 import { getRandomInt } from "./utils.js";
 import Game from "./game.js";
+import { audioManager } from "./audio-manager.js";
 
 export default class Board{
   rows;
@@ -141,6 +142,7 @@ export default class Board{
   async handleMineReveal() {
     try {
       this.disableBoard();
+      audioManager.playSound('lose');
       await this.revealMines();
       this.game.lose();
     } catch (error) {
@@ -150,6 +152,7 @@ export default class Board{
 
 
   reveal(cellId){
+    audioManager.playSound('reveal');
     let matchingCell = this.getCellFromLogic(cellId);
     if (matchingCell.isRevealed) return; // already revealed
     
@@ -167,6 +170,7 @@ export default class Board{
       
       
     }else{
+      
       let adjacentMines = matchingCell.getNeighbors(this.board);
       
       if(adjacentMines){//if neighbors are at least 1
@@ -181,7 +185,7 @@ export default class Board{
   }
 
   flag(cellId){
-    
+    audioManager.playSound('flag');
     let matchingCell = this.getCellFromLogic(cellId);
     if (matchingCell.isRevealed) return; // already revealed
     

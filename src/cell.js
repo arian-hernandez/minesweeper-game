@@ -53,16 +53,14 @@ export class SafeCell extends Cell{
     return adjacentMines;
 }
 
- 
-
-  /*In expand() notice that you have to
-  1- Change the cell to empty and reveal
-  2- check the adjacent cells 
-  3- if they have neighbors: call getNeighbors() on those cells
-  4- if they are empty reCall expand recursively
-  */
   expand(board) {
+
+    
+
+
     if (this.isRevealed) return;
+
+    
   
     this.isRevealed = true;
     this.isFlagged = false; // Remove flag if it exists
@@ -108,6 +106,9 @@ export class SafeCell extends Cell{
         }
       }
     }
+
+    
+
   }
 
 

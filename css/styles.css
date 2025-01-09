@@ -294,3 +294,23 @@ body {
   background-image: none !important;
   background-color: transparent;
 }
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+/* add this class to shake it como daddy yankee */
+.shake {
+  animation: shake 0.3s ease-in-out;
+}

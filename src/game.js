@@ -1,5 +1,6 @@
 import Board from "./board.js";
 import Timer from "./timer.js";
+import { audioManager } from "./audio-manager.js";
 
 export default class Game {
   difficulty = "easy";
@@ -57,6 +58,7 @@ export default class Game {
       this.timer.stop();
     }
     showWinPopup();
+    audioManager.playSound('win');
   }
 
   lose() {
@@ -66,6 +68,7 @@ export default class Game {
     const loseText = document.querySelector('.js-title-baner');
     loseText.innerHTML = 'Explotaste como cafunga';
     showLosePopup();
+    
   }
 }
 
