@@ -142,6 +142,7 @@ export default class Board{
   async handleMineReveal() {
     try {
       this.disableBoard();
+      this.game.stopTimer();
       audioManager.playSound('lose');
       await this.revealMines();
       this.game.lose();

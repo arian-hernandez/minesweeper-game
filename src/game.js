@@ -61,10 +61,14 @@ export default class Game {
     audioManager.playSound('win');
   }
 
-  lose() {
+  stopTimer(){
     if (this.timer) {
       this.timer.stop();
     }
+  }
+
+  lose() {
+    
     const loseText = document.querySelector('.js-title-baner');
     loseText.innerHTML = 'Explotaste como cafunga';
     showLosePopup();

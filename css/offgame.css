@@ -226,3 +226,28 @@ body {
 .toggle-checkbox:checked + .toggle-label::before {
   transform: translateX(22px);
 }
+
+
+/* Settings */
+.settings-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.settings-container label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.settings-container input,
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  outline: none;
+}
