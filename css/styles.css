@@ -411,9 +411,17 @@ body {
 
   /* Game status adjustments for mobile */
   .game-status {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 5px;
     margin-bottom: 15px;
+    justify-content: space-evenly;
   }
+}
+
+.timer{
+  background: var(--global-color-accent);
+  color: white;
+  padding: 5px;
+  border-radius: 50px;
 }

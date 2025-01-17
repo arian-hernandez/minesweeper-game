@@ -261,7 +261,7 @@ export default class Board{
 
   updateDifficultyGame(){
     const difficultyElement = document.querySelector('.js-difficulty-selected');
-    difficultyElement.textContent = `Difficulty: ${this.difficulty}`;
+    difficultyElement.textContent = `${this.difficulty}`;
     const minesElement = document.querySelector('.js-mines-total');
     minesElement.textContent = `Total mines: ${this.numberOfMines}`;
   }
