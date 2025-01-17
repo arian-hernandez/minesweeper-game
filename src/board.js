@@ -17,6 +17,8 @@ export default class Board{
     this.numberOfMines = game.numberOfMines;
     this.difficulty = game.difficulty;
     this.game = game;
+    this.isFlagMode = false;
+    this.isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     // Update the board generation with new ID format
     this.board = Array.from({ length: this.rows }, (row, rowIndex) =>
@@ -76,22 +78,52 @@ export default class Board{
       }
     }
     boardHTML += `</div>`
-
+  
     document.querySelector('.board').innerHTML = boardHTML;
-
-    // Update event listeners to use new ID format
+  
+    // Update event listeners for mobile compatibility
     document.querySelectorAll('.js-cell').forEach((cell) => {
-      cell.addEventListener('click', () => {
-        const cellId = cell.dataset.id;
-        this.reveal(cellId);
-      });
-
-      cell.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
-        const cellId = cell.dataset.id;
-        this.flag(cellId);
-      });
+      if (this.isMobileDevice) {
+        cell.addEventListener('click', (event) => {
+          const cellId = cell.dataset.id;
+          if (this.isFlagMode) {
+            this.flag(cellId);
+          } else {
+            this.reveal(cellId);
+          }
+        });
+      } else {
+        // Desktop behavior remains the same
+        cell.addEventListener('click', () => {
+          const cellId = cell.dataset.id;
+          this.reveal(cellId);
+        });
+  
+        cell.addEventListener('contextmenu', (event) => {
+          event.preventDefault();
+          const cellId = cell.dataset.id;
+          this.flag(cellId);
+        });
+      }
     });
+  
+    // Add mode toggle listeners for mobile
+    if (this.isMobileDevice) {
+      const revealButton = document.querySelector('.js-mode-reveal');
+      const flagButton = document.querySelector('.js-mode-flag');
+  
+      revealButton.addEventListener('click', () => {
+        this.isFlagMode = false;
+        revealButton.classList.add('active');
+        flagButton.classList.remove('active');
+      });
+  
+      flagButton.addEventListener('click', () => {
+        this.isFlagMode = true;
+        flagButton.classList.add('active');
+        revealButton.classList.remove('active');
+      });
+    }
   }
 
   getTotalCells(){

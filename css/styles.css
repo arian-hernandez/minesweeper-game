@@ -314,3 +314,106 @@ body {
 .shake {
   animation: shake 0.3s ease-in-out;
 }
+
+/* Make game container responsive */
+#game {
+  max-width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.board-game {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Mode toggle for mobile */
+.mode-toggle {
+  display: none; /* Hidden by default on desktop */
+  margin: 15px auto;
+  text-align: center;
+}
+
+.mode-toggle button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.mode-toggle button.active {
+  background: var(--global-color-accent);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 800px) {
+  .mode-toggle {
+    display: block; /* Show on mobile */
+  }
+
+  .board {
+    margin: 0 auto;
+  }
+
+  /* Adjust board sizes for better mobile visibility */
+  .board-easy { 
+    grid-template-columns: repeat(8, 40px); 
+    grid-template-rows: repeat(8, 40px);
+  }
+
+  .board-normal { 
+    grid-template-columns: repeat(16, 30px); 
+    grid-template-rows: repeat(16, 30px);
+  }
+
+  .board-hard { 
+    grid-template-columns: repeat(30, 25px); 
+    grid-template-rows: repeat(16, 25px);
+  }
+
+  .board-extreme { 
+    grid-template-columns: repeat(30, 22px); 
+    grid-template-rows: repeat(24, 22px);
+  }
+
+  /* Adjust cell sizes */
+  .board-easy .cell {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+  }
+
+  .board-normal .cell {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+  }
+
+  .board-hard .cell {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 14px;
+  }
+
+  .board-extreme .cell {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+  }
+
+  /* Game status adjustments for mobile */
+  .game-status {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+}
