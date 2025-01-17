@@ -27,21 +27,21 @@ export default class Game {
         this.numberOfRows = 16;
         this.numberOfColumns = 16;
         this.numberOfMines = 40;
-        this.seconds = 180;
+        this.seconds = 280;
         break;
 
       case "hard":
         this.numberOfRows = 16;
         this.numberOfColumns = 30;
         this.numberOfMines = 99;
-        this.seconds = 300;
+        this.seconds = 400;
         break;
 
       case "extreme":
         this.numberOfRows = 24;
         this.numberOfColumns = 30;
         this.numberOfMines = 200;
-        this.seconds = 480;
+        this.seconds = 580;
         break;
 
       default:
